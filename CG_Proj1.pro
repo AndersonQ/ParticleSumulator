@@ -18,3 +18,7 @@ HEADERS  += mainwindow.h \
     opengl.h
 
 FORMS    += mainwindow.ui
+
+OTHER_FILES += \
+    vshader.glsl \
+    fshader.glsl

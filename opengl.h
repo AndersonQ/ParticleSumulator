@@ -3,6 +3,12 @@
 
 #include <QGLWidget>
 
+#include <QGLShader>
+#include <QGLShaderProgram>
+#include <QGLBuffer>
+#include <QMatrix4x4>
+#include <QVector4D>
+
 class OpenGL : public QGLWidget
 {
     Q_OBJECT
@@ -12,12 +18,29 @@ public:
 signals:
 
 public slots:
+    void xslot(int n);
+    void yslot(int n);
+    void zslot(int n);
 
 protected:
     void initializeGL();
     void resizeGL(int x, int h);
     void paintGL();
+    void createScene(void);
 
+    QGLShader *m_vertexShader;
+    QGLShader *m_fragmentShader;
+    QGLShaderProgram *m_shaderProgram;
+
+    QGLBuffer *m_vboVertices;
+    QGLBuffer *m_vboIndices;
+
+    int m_t;
+
+    QMatrix4x4 m_matrixTransformation;
+
+private:
+    int xrot , yrot, zrot;
 };
 
 #endif // OPENGL_H

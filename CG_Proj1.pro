@@ -22,3 +22,6 @@ FORMS    += mainwindow.ui
 OTHER_FILES += \
     vshader.glsl \
     fshader.glsl
+
+RESOURCES += \
+    resources.qrc

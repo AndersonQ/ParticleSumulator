@@ -41,7 +41,8 @@ protected:
     QMatrix4x4 m_matrixTransformation;
 
 private:
-    int xrot , yrot, zrot;
+    int xrot , yrot, zrot, zoom;
+    int num_vertices;
 };
 
 #endif // OPENGL_H

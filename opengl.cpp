@@ -8,6 +8,7 @@ OpenGL::OpenGL(QWidget *parent) :
 void OpenGL::initializeGL(){
     glClearColor(0,0,0,0);
     glClearDepth(1);
+    zoom = 1;
 
     m_vertexShader = new QGLShader(QGLShader::Vertex);
     m_fragmentShader = new QGLShader(QGLShader::Fragment);
@@ -31,7 +32,7 @@ void OpenGL::initializeGL(){
 }
 
 void OpenGL::createScene(){
-    int num_vertices = 8;
+    num_vertices = 1000;
     QVector3D *vertices = new QVector3D[num_vertices*2]; // *2 to allocate space for colors
 
     for (int i = 0; i< num_vertices; i++)
@@ -89,7 +90,7 @@ void OpenGL::paintGL(){
 
     m_shaderProgram->setAttributeBuffer("vPosition", GL_FLOAT, 0, 3, 0);
     m_shaderProgram->setAttributeBuffer("vColor", GL_FLOAT, 8*sizeof(QVector3D), 3, 0);
-    glDrawElements(GL_POINTS, 24, GL_UNSIGNED_BYTE, 0);
+    glDrawElements(GL_POINTS, num_vertices, GL_UNSIGNED_BYTE, 0);
 
     m_shaderProgram->disableAttributeArray("vPosition");
     m_shaderProgram->disableAttributeArray("vColor");
@@ -120,6 +121,7 @@ void OpenGL::xslot(int n){
     m_matrixTransformation.rotate(xrot,1,0,0);
     m_matrixTransformation.rotate(yrot,0,1,0);
     m_matrixTransformation.rotate(zrot,0,0,1);
+    m_matrixTransformation.scale(zoom,zoom,zoom);
     m_shaderProgram->setUniformValue("MatrixTransformation", m_matrixTransformation);
     updateGL();
 }
@@ -129,6 +131,7 @@ void OpenGL::yslot(int n){
     m_matrixTransformation.rotate(xrot,1,0,0);
     m_matrixTransformation.rotate(yrot,0,1,0);
     m_matrixTransformation.rotate(zrot,0,0,1);
+    m_matrixTransformation.scale(zoom,zoom,zoom);
     m_shaderProgram->setUniformValue("MatrixTransformation", m_matrixTransformation);
     updateGL();
 }
@@ -138,12 +141,14 @@ void OpenGL::zslot(int n){
     m_matrixTransformation.rotate(xrot,1,0,0);
     m_matrixTransformation.rotate(yrot,0,1,0);
     m_matrixTransformation.rotate(zrot,0,0,1);
+    m_matrixTransformation.scale(zoom,zoom,zoom);
     m_shaderProgram->setUniformValue("MatrixTransformation", m_matrixTransformation);
     updateGL();
 }
 
 void OpenGL::zoomslot(int n){
-    m_matrixTransformation.scale(n,n,0);
+    zoom = n;
+    m_matrixTransformation.scale(zoom,zoom,zoom);
     m_shaderProgram->setUniformValue("MatrixTransformation", m_matrixTransformation);
     /*printf("scale %i\n", n);
     fflush(stdout);*/

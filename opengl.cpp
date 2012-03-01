@@ -141,3 +141,11 @@ void OpenGL::zslot(int n){
     m_shaderProgram->setUniformValue("MatrixTransformation", m_matrixTransformation);
     updateGL();
 }
+
+void OpenGL::zoomslot(int n){
+    m_matrixTransformation.scale(n,n,0);
+    m_shaderProgram->setUniformValue("MatrixTransformation", m_matrixTransformation);
+    /*printf("scale %i\n", n);
+    fflush(stdout);*/
+    updateGL();
+}

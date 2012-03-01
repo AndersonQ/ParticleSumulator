@@ -21,6 +21,7 @@ public slots:
     void xslot(int n);
     void yslot(int n);
     void zslot(int n);
+    void zoomslot(int n);
 
 protected:
     void initializeGL();

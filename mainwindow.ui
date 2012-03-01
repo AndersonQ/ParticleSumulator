@@ -6,19 +6,19 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
+    <width>498</width>
     <height>339</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Simulador de Partículas</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0">
+    <item row="0" column="0" rowspan="2" colspan="3">
      <widget class="OpenGL" name="widget" native="true"/>
     </item>
-    <item row="1" column="0">
+    <item row="2" column="1">
      <widget class="QSlider" name="xslider">
       <property name="maximum">
        <number>360</number>
@@ -28,7 +28,7 @@
       </property>
      </widget>
     </item>
-    <item row="2" column="0">
+    <item row="3" column="1">
      <widget class="QSlider" name="yslider">
       <property name="maximum">
        <number>360</number>
@@ -38,11 +38,46 @@
       </property>
      </widget>
     </item>
-    <item row="3" column="0">
+    <item row="4" column="1">
      <widget class="QSlider" name="zslider">
       <property name="maximum">
        <number>360</number>
       </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="labelx">
+      <property name="text">
+       <string>Rotate X</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QLabel" name="labely">
+      <property name="text">
+       <string>Rotate Y</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0">
+     <widget class="QLabel" name="labelz">
+      <property name="text">
+       <string>Rotate Z</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="0">
+     <widget class="QLabel" name="labelzoom">
+      <property name="text">
+       <string>Zoom</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="1">
+     <widget class="QSlider" name="zoomsider">
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
@@ -55,7 +90,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>400</width>
+     <width>498</width>
      <height>25</height>
     </rect>
    </property>
@@ -81,6 +116,7 @@
     <slot>xslot(int)</slot>
     <slot>yslot(int)</slot>
     <slot>zslot(int)</slot>
+    <slot>zoomslot(int)</slot>
    </slots>
   </customwidget>
  </customwidgets>
@@ -88,13 +124,13 @@
  <connections>
   <connection>
    <sender>xslider</sender>
-   <signal>sliderMoved(int)</signal>
+   <signal>valueChanged(int)</signal>
    <receiver>widget</receiver>
    <slot>xslot(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>64</x>
-     <y>240</y>
+     <x>129</x>
+     <y>215</y>
     </hint>
     <hint type="destinationlabel">
      <x>66</x>
@@ -104,13 +140,13 @@
   </connection>
   <connection>
    <sender>yslider</sender>
-   <signal>sliderMoved(int)</signal>
+   <signal>valueChanged(int)</signal>
    <receiver>widget</receiver>
    <slot>yslot(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>199</x>
-     <y>260</y>
+     <x>264</x>
+     <y>235</y>
     </hint>
     <hint type="destinationlabel">
      <x>159</x>
@@ -120,17 +156,33 @@
   </connection>
   <connection>
    <sender>zslider</sender>
-   <signal>sliderMoved(int)</signal>
+   <signal>valueChanged(int)</signal>
    <receiver>widget</receiver>
    <slot>zslot(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>199</x>
-     <y>285</y>
+     <x>264</x>
+     <y>260</y>
     </hint>
     <hint type="destinationlabel">
      <x>243</x>
-     <y>203</y>
+     <y>194</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>zoomsider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>widget</receiver>
+   <slot>zoomslot(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>296</x>
+     <y>286</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>339</x>
+     <y>172</y>
     </hint>
    </hints>
   </connection>

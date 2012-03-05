@@ -7,7 +7,7 @@
 #include <QGLShaderProgram>
 #include <QGLBuffer>
 #include <QMatrix4x4>
-#include <QVector4D>
+#include <QVector3D>
 
 class OpenGL : public QGLWidget
 {
@@ -34,15 +34,16 @@ protected:
     QGLShaderProgram *m_shaderProgram;
 
     QGLBuffer *m_vboVertices;
-    QGLBuffer *m_vboIndices;
+    QGLBuffer *m_vboColors;
 
-    int m_t;
+    QVector3D* m_points;
+    QVector3D* m_point_colors;
 
     QMatrix4x4 m_matrixTransformation;
 
 private:
     int xrot , yrot, zrot, zoom;
-    int num_vertices;
+    unsigned int MAX_NUM_PARTICLES;
 };
 
 #endif // OPENGL_H

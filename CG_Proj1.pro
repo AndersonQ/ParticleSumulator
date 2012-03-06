@@ -12,10 +12,14 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    opengl.cpp
+    opengl.cpp \
+    particle.cpp \
+    particlesimulator.cpp
 
 HEADERS  += mainwindow.h \
-    opengl.h
+    opengl.h \
+    particle.h \
+    particlesimulator.h
 
 FORMS    += mainwindow.ui
 

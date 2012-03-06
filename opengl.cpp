@@ -1,27 +1,38 @@
 #include "opengl.h"
+#include "particle.h"
+#include "particlesimulator.h"
 
 OpenGL::OpenGL(QWidget *parent) :
     QGLWidget(parent)
 {
     m_points = NULL;
-    m_point_colors = NULL;
+    m_point_colours = NULL;
 
     m_vboVertices = NULL;
     m_vboColors   = NULL;
+
+    sys = new ParticleSimulator(20);
 }
 
 void OpenGL::initializeGL(){
     glEnable(GL_DEPTH_TEST);
 
-    MAX_NUM_PARTICLES = 100;
+    /* Define the initial number of particles */
+    //sys->set_num_particles(20);
+
+    /* Set a random initial position and colour of particles */
+    for (unsigned int i; i < MAX_NUM_PARTICLES; i++){
+        sys->par[i].SetPosition(QVector3D(rand()/(float)RAND_MAX, rand()/(float)RAND_MAX, rand()/(float)RAND_MAX));
+        sys->par[i].SetColour(QVector3D(rand()/(float)RAND_MAX, rand()/(float)RAND_MAX, rand()/(float)RAND_MAX));
+    }
 
     m_vertexShader = new QGLShader(QGLShader::Vertex);
     m_fragmentShader = new QGLShader(QGLShader::Fragment);
 
-    if(!m_vertexShader->compileSourceFile("/media/Mokona/UFABC/10-Quad/Computacao.Grafica/Proj1/CG_Proj1/vshader.glsl"))
+    if(!m_vertexShader->compileSourceFile(":/vshader.glsl"))
          qWarning() << m_vertexShader->log();
 
-     if(!m_fragmentShader->compileSourceFile("/media/Mokona/UFABC/10-Quad/Computacao.Grafica/Proj1/CG_Proj1/fshader.glsl"))
+     if(!m_fragmentShader->compileSourceFile(":/fshader.glsl"))
          qWarning() << m_fragmentShader->log();
 
      m_shaderProgram = new QGLShaderProgram;
@@ -32,25 +43,26 @@ void OpenGL::initializeGL(){
          qWarning() << m_shaderProgram->log() << endl;
      else
          m_shaderProgram->bind();
+
+     /* Define initial zoom */
      zoom = 1;
+
      createScene();
 }
 
 void OpenGL::createScene(){
 
     if (m_points!= NULL) delete []m_points;
-    if (m_point_colors!=NULL) delete []m_point_colors;
+    if (m_point_colours!=NULL) delete []m_point_colours;
 
-    m_points = new QVector3D[MAX_NUM_PARTICLES];
-    m_point_colors = new QVector3D[MAX_NUM_PARTICLES];
+    m_points = new QVector3D[sys->get_num_particles()];
+    m_point_colours = new QVector3D[sys->get_num_particles()];
 
-    /* initialize readom locations of particles */
-    for(unsigned int i = 0; i < MAX_NUM_PARTICLES; i++)
-        m_points[i] = QVector3D(rand()/(float)RAND_MAX, rand()/(float)RAND_MAX, rand()/(float)RAND_MAX);
-
-    /* initialize random color for particles */
-    for(unsigned int i = 0; i < MAX_NUM_PARTICLES; i++)
-        m_point_colors[i] = QVector3D(1,1,1);
+    /*  */
+    for(unsigned int i = 0; i < sys->get_num_particles(); i++){
+        m_points[i] = sys->par[i].Get_Position();
+        m_point_colours[i] = sys->par[i].Get_Colour();
+    }
 
     glPointSize(5.0);
     glClearColor(0.5, 0.5, 0.5, 1.0);
@@ -66,7 +78,7 @@ void OpenGL::createScene(){
     m_vboVertices->create();
     m_vboVertices->bind();
     m_vboVertices->setUsagePattern(QGLBuffer::DynamicDraw);
-    m_vboVertices->allocate(m_points, (MAX_NUM_PARTICLES)*sizeof(QVector3D));
+    m_vboVertices->allocate(m_points, (sys->get_num_particles())*sizeof(QVector3D));
     //delete []m_points;
     //m_points = NULL;
 
@@ -81,10 +93,9 @@ void OpenGL::createScene(){
     m_vboColors->create();
     m_vboColors->bind();
     m_vboColors->setUsagePattern(QGLBuffer::DynamicDraw);
-    m_vboColors->allocate(m_point_colors, (MAX_NUM_PARTICLES)*sizeof(QVector3D));
-    //delete []m_point_colors;
-    //m_point_colors = NULL;
-
+    m_vboColors->allocate(m_point_colours, (sys->get_num_particles())*sizeof(QVector3D));
+    //delete []m_point_colours;
+    //m_point_colours = NULL;
 }
 
 void OpenGL::resizeGL(int w, int h){
@@ -114,22 +125,12 @@ void OpenGL::resizeGL(int w, int h){
 
 void OpenGL::paintGL(){
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    //m_matrixTransformation.setToIdentity();
-    //m_shaderProgram->setUniformValue("MatrixTransformation", m_matrixTransformation);
 
-    if (m_vboVertices == NULL){
-        printf("NULLLLLLLLLLL!!!!!!!!!!!!\n");
-        fflush(stdout);
-    }
     m_vboVertices->bind();
     //pointer to GPU!!!
     QVector3D* pt = (QVector3D*) m_vboVertices->map(QGLBuffer::WriteOnly);
-     for(unsigned int i=0; i < MAX_NUM_PARTICLES; i++)
+     for(unsigned int i=0; i < sys->get_num_particles(); i++)
      {
-         printf("pt[%i] = m_points[%i]\n", i,i);
-         if(m_points == NULL)
-             puts("NULLLLLLLLLLLLLLLLLLLLLLL!");
-         fflush(stdout);
         pt[i] = m_points[i];
      }
      m_vboVertices->unmap();
@@ -141,21 +142,22 @@ void OpenGL::paintGL(){
     m_vboColors->bind();
     QVector3D* pt_color = (QVector3D*) m_vboColors->map(QGLBuffer::WriteOnly);
 
-    for(unsigned int i=0; i < MAX_NUM_PARTICLES; i++)
+    for(unsigned int i=0; i < sys->get_num_particles(); i++)
     {
-       pt_color[i] = m_point_colors[i];
+       pt_color[i] = m_point_colours[i];
     }
     m_vboColors->unmap();
 
     m_shaderProgram->enableAttributeArray("vColor");
     m_shaderProgram->setAttributeBuffer("vColor", GL_FLOAT, 0, 4, 0);
 
-    glDrawArrays(GL_POINTS, 0, MAX_NUM_PARTICLES);
+    glDrawArrays(GL_POINTS, 0, sys->get_num_particles());
 
 }
 
 void OpenGL::xslot(int n){
     xrot = n;
+    m_matrixTransformation.setToIdentity();
     m_matrixTransformation.rotate(xrot,1,0,0);
     m_matrixTransformation.rotate(yrot,0,1,0);
     m_matrixTransformation.rotate(zrot,0,0,1);
@@ -166,6 +168,7 @@ void OpenGL::xslot(int n){
 
 void OpenGL::yslot(int n){
     yrot = n;
+    m_matrixTransformation.setToIdentity();
     m_matrixTransformation.rotate(xrot,1,0,0);
     m_matrixTransformation.rotate(yrot,0,1,0);
     m_matrixTransformation.rotate(zrot,0,0,1);
@@ -176,6 +179,7 @@ void OpenGL::yslot(int n){
 
 void OpenGL::zslot(int n){
     zrot = n;
+    m_matrixTransformation.setToIdentity();
     m_matrixTransformation.rotate(xrot,1,0,0);
     m_matrixTransformation.rotate(yrot,0,1,0);
     m_matrixTransformation.rotate(zrot,0,0,1);
@@ -185,10 +189,12 @@ void OpenGL::zslot(int n){
 }
 
 void OpenGL::zoomslot(int n){
-    zoom = n;
+    zoom = 1 - (float) n / (float) 100;
+    m_matrixTransformation.setToIdentity();
+    m_matrixTransformation.rotate(xrot,1,0,0);
+    m_matrixTransformation.rotate(yrot,0,1,0);
+    m_matrixTransformation.rotate(zrot,0,0,1);
     m_matrixTransformation.scale(zoom,zoom,zoom);
     m_shaderProgram->setUniformValue("MatrixTransformation", m_matrixTransformation);
-    /*printf("scale %i\n", n);
-    fflush(stdout);*/
     updateGL();
 }

@@ -9,6 +9,10 @@
 #include <QMatrix4x4>
 #include <QVector3D>
 
+#include <particle.h>
+#include <particlesimulator.h>
+#include <QTimer>
+
 class OpenGL : public QGLWidget
 {
     Q_OBJECT
@@ -24,6 +28,7 @@ public slots:
     void zoomslot(int n);
 
 protected:
+    /* Functions */
     void initializeGL();
     void resizeGL(int x, int h);
     void paintGL();
@@ -37,13 +42,16 @@ protected:
     QGLBuffer *m_vboColors;
 
     QVector3D* m_points;
-    QVector3D* m_point_colors;
+    QVector3D* m_point_colours;
 
     QMatrix4x4 m_matrixTransformation;
 
 private:
-    int xrot , yrot, zrot, zoom;
-    unsigned int MAX_NUM_PARTICLES;
+    /* variables */
+    int xrot , yrot, zrot;
+    qreal zoom;
+    ParticleSimulator *sys;
+    QTimer *timer;
 };
 
 #endif // OPENGL_H

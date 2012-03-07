@@ -150,8 +150,8 @@ void OpenGL::paintGL(){
 
     m_vboVertices->bind();
     //pointer to GPU!!!
-    QVector3D* pt = (QVector3D*) m_vboVertices->map(QGLBuffer::WriteOnly);
-     /*for(unsigned int i=0; i < sys->get_num_particles(); i++)
+    /*QVector3D* pt = (QVector3D*) m_vboVertices->map(QGLBuffer::WriteOnly);
+     for(unsigned int i=0; i < sys->get_num_particles(); i++)
      {
         pt[i] = m_points[i];
      }*/
@@ -162,9 +162,9 @@ void OpenGL::paintGL(){
 
 
     m_vboColors->bind();
-    QVector3D* pt_color = (QVector3D*) m_vboColors->map(QGLBuffer::WriteOnly);
+    /*QVector3D* pt_color = (QVector3D*) m_vboColors->map(QGLBuffer::WriteOnly);
 
-    /*for(unsigned int i=0; i < sys->get_num_particles(); i++)
+    for(unsigned int i=0; i < sys->get_num_particles(); i++)
     {
        pt_color[i] = m_point_colours[i];
     }*/

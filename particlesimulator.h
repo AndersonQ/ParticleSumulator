@@ -13,7 +13,7 @@ public:
     ParticleSimulator();
     ParticleSimulator(int n);
     void set_num_particles(int n);
-    int get_num_particles();
+    unsigned int get_num_particles();
 
 private:
     unsigned int num_particles;

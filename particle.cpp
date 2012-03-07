@@ -2,6 +2,12 @@
 
 Particle::Particle()
 {
+    mass = 1;
+}
+
+Particle::Particle(int particle_mass)
+{
+    mass = particle_mass;
 }
 
 void Particle::SetPosition(QVector3D vec){

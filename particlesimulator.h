@@ -8,6 +8,8 @@ class ParticleSimulator
 public:
     /* Variables */
     Particle *par;
+    Particle *blackhole;
+    Particle *whitehole;
 
     /* Funcions */
     ParticleSimulator();

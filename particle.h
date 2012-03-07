@@ -2,11 +2,13 @@
 #define PARTICLE_H
 
 #include <QVector3D>
+#include <QGLWidget>
 
 class Particle
 {
 public:
     Particle();
+    Particle(int particle_mass);
     void SetPosition(QVector3D vec);
     QVector3D Get_Position();
 
@@ -16,6 +18,7 @@ public:
 private:
     QVector3D position;
     QVector3D colour;
+    GLfloat mass;
 
 };
 

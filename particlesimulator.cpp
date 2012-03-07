@@ -4,6 +4,7 @@ ParticleSimulator::ParticleSimulator()
 {    
     num_particles = 100;
     par = new Particle[100];
+    blackhole = new Particle();
 }
 
 ParticleSimulator::ParticleSimulator(int n)

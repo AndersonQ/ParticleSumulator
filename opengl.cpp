@@ -11,19 +11,40 @@ OpenGL::OpenGL(QWidget *parent) :
     m_vboVertices = NULL;
     m_vboColors   = NULL;
 
-    sys = new ParticleSimulator(20);
+    /* Define the initial number of particles */
+    sys = new ParticleSimulator(10000);
 }
 
 void OpenGL::initializeGL(){
     glEnable(GL_DEPTH_TEST);
 
-    /* Define the initial number of particles */
-    //sys->set_num_particles(20);
-
     /* Set a random initial position and colour of particles */
-    for (unsigned int i; i < MAX_NUM_PARTICLES; i++){
-        sys->par[i].SetPosition(QVector3D(rand()/(float)RAND_MAX, rand()/(float)RAND_MAX, rand()/(float)RAND_MAX));
-        sys->par[i].SetColour(QVector3D(rand()/(float)RAND_MAX, rand()/(float)RAND_MAX, rand()/(float)RAND_MAX));
+    for (unsigned int i = 0; i < MAX_NUM_PARTICLES; i++){
+        if (i%8 == 0)
+            sys->par[i].SetPosition(QVector3D(rand()/(float)RAND_MAX, rand()/(float)RAND_MAX, rand()/(float)RAND_MAX));
+        else if(i%8 == 1)
+            sys->par[i].SetPosition(QVector3D(rand()/(float)RAND_MAX, rand()/(float)RAND_MAX, rand()/(float)RAND_MAX)*
+                                    QVector3D(1,1,-1));
+        else if(i%8 == 2)
+                sys->par[i].SetPosition(QVector3D(rand()/(float)RAND_MAX, rand()/(float)RAND_MAX, rand()/(float)RAND_MAX)*
+                                        QVector3D(1,-1,1));
+        else if(i%8 == 3)
+                sys->par[i].SetPosition(QVector3D(rand()/(float)RAND_MAX, rand()/(float)RAND_MAX, rand()/(float)RAND_MAX)*
+                                        QVector3D(1,-1,-1));
+        else if(i%8 == 4)
+                sys->par[i].SetPosition(QVector3D(rand()/(float)RAND_MAX, rand()/(float)RAND_MAX, rand()/(float)RAND_MAX)*
+                                        QVector3D(-1,1,1));
+        else if(i%8 == 5)
+                sys->par[i].SetPosition(QVector3D(rand()/(float)RAND_MAX, rand()/(float)RAND_MAX, rand()/(float)RAND_MAX)*
+                                        QVector3D(-1,1,-1));
+        else if(i%8 == 6)
+                sys->par[i].SetPosition(QVector3D(rand()/(float)RAND_MAX, rand()/(float)RAND_MAX, rand()/(float)RAND_MAX)*
+                                        QVector3D(-1,-1,1));
+        else if(i%8 == 7)
+                sys->par[i].SetPosition(QVector3D(rand()/(float)RAND_MAX, rand()/(float)RAND_MAX, rand()/(float)RAND_MAX)*
+                                        QVector3D(-1,-1,-1));
+
+        sys->par[i].SetColour(QVector3D(1,1,1));//(rand()/(float)RAND_MAX, rand()/(float)RAND_MAX, rand()/(float)RAND_MAX));
     }
 
     m_vertexShader = new QGLShader(QGLShader::Vertex);
@@ -58,44 +79,44 @@ void OpenGL::createScene(){
     m_points = new QVector3D[sys->get_num_particles()];
     m_point_colours = new QVector3D[sys->get_num_particles()];
 
-    /*  */
+    /*   */
     for(unsigned int i = 0; i < sys->get_num_particles(); i++){
         m_points[i] = sys->par[i].Get_Position();
         m_point_colours[i] = sys->par[i].Get_Colour();
     }
 
-    glPointSize(5.0);
+    glPointSize(2.0);
     glClearColor(0.5, 0.5, 0.5, 1.0);
 
-    /* create VBO for vertices
+    // create VBO for vertices
     if (m_vboVertices != NULL)
     {
         m_vboVertices->release();
         m_vboVertices->destroy();
-    }*/
+    }
 
     m_vboVertices = new QGLBuffer(QGLBuffer::VertexBuffer);
     m_vboVertices->create();
     m_vboVertices->bind();
     m_vboVertices->setUsagePattern(QGLBuffer::DynamicDraw);
     m_vboVertices->allocate(m_points, (sys->get_num_particles())*sizeof(QVector3D));
-    //delete []m_points;
-    //m_points = NULL;
+    delete []m_points;
+    m_points = NULL;
 
-    /* create VBO for colors
+    // create VBO for colors
     if (m_vboColors != NULL)
     {
         m_vboColors->release();
         m_vboColors->destroy();
-    }*/
+    }
 
     m_vboColors = new QGLBuffer(QGLBuffer::VertexBuffer);
     m_vboColors->create();
     m_vboColors->bind();
     m_vboColors->setUsagePattern(QGLBuffer::DynamicDraw);
     m_vboColors->allocate(m_point_colours, (sys->get_num_particles())*sizeof(QVector3D));
-    //delete []m_point_colours;
-    //m_point_colours = NULL;
+    delete []m_point_colours;
+    m_point_colours = NULL;
 }
 
 void OpenGL::resizeGL(int w, int h){
@@ -129,10 +150,10 @@ void OpenGL::paintGL(){
     m_vboVertices->bind();
     //pointer to GPU!!!
     QVector3D* pt = (QVector3D*) m_vboVertices->map(QGLBuffer::WriteOnly);
-     for(unsigned int i=0; i < sys->get_num_particles(); i++)
+     /*for(unsigned int i=0; i < sys->get_num_particles(); i++)
      {
         pt[i] = m_points[i];
-     }
+     }*/
      m_vboVertices->unmap();
 
     m_shaderProgram->enableAttributeArray("vPosition");
@@ -142,14 +163,14 @@ void OpenGL::paintGL(){
     m_vboColors->bind();
     QVector3D* pt_color = (QVector3D*) m_vboColors->map(QGLBuffer::WriteOnly);
 
-    for(unsigned int i=0; i < sys->get_num_particles(); i++)
+    /*for(unsigned int i=0; i < sys->get_num_particles(); i++)
     {
        pt_color[i] = m_point_colours[i];
-    }
+    }*/
     m_vboColors->unmap();
 
     m_shaderProgram->enableAttributeArray("vColor");
-    m_shaderProgram->setAttributeBuffer("vColor", GL_FLOAT, 0, 4, 0);
+    m_shaderProgram->setAttributeBuffer("vColor", GL_FLOAT, 0, 3, 0);
 
     glDrawArrays(GL_POINTS, 0, sys->get_num_particles());
 

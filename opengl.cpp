@@ -70,6 +70,11 @@ void OpenGL::initializeGL(){
      zoom = 1;
 
      createScene();
+
+     //Start the steps
+     timer = new QTimer(this);
+     connect(timer, SIGNAL(timeout()), this, SLOT(Step()));
+     //timer->start(100);
 }
 
 void OpenGL::createScene(){
@@ -118,6 +123,12 @@ void OpenGL::createScene(){
     m_vboColors->allocate(m_point_colours, (sys->get_num_particles())*sizeof(QVector3D));
     delete []m_point_colours;
     m_point_colours = NULL;
+}
+
+void OpenGL::Step(){
+    static unsigned int i = 0;
+    printf("%d\n", i++);
+    fflush(stdout);
 }
 
 void OpenGL::resizeGL(int w, int h){

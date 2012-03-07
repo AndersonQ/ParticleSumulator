@@ -22,6 +22,7 @@ public:
 signals:
 
 public slots:
+    void Step();
     void xslot(int n);
     void yslot(int n);
     void zslot(int n);

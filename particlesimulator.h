@@ -3,14 +3,11 @@
 
 #include "particle.h"
 
-#define MAX_NUM_PARTICLES 10000
-
 class ParticleSimulator
 {
 public:
     /* Variables */
-    Particle par[MAX_NUM_PARTICLES];
-
+    Particle *par;
 
     /* Funcions */
     ParticleSimulator();

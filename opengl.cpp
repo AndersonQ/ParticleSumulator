@@ -12,14 +12,15 @@ OpenGL::OpenGL(QWidget *parent) :
     m_vboColors   = NULL;
 
     /* Define the initial number of particles */
-    sys = new ParticleSimulator(10000);
+    sys = new ParticleSimulator(1000);
 }
 
 void OpenGL::initializeGL(){
     glEnable(GL_DEPTH_TEST);
 
     /* Set a random initial position and colour of particles */
-    for (unsigned int i = 0; i < MAX_NUM_PARTICLES; i++){
+    unsigned int p = sys->get_num_particles();
+    for (unsigned int i = 0; i < p; i++){
         if (i%8 == 0)
             sys->par[i].SetPosition(QVector3D(rand()/(float)RAND_MAX, rand()/(float)RAND_MAX, rand()/(float)RAND_MAX));
         else if(i%8 == 1)

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>498</width>
+    <width>514</width>
     <height>339</height>
    </rect>
   </property>
@@ -15,7 +15,7 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0" rowspan="2" colspan="3">
+    <item row="0" column="0" rowspan="2" colspan="2">
      <widget class="OpenGL" name="widget" native="true"/>
     </item>
     <item row="2" column="1">
@@ -89,6 +89,13 @@
       </property>
      </widget>
     </item>
+    <item row="0" column="2">
+     <widget class="QPushButton" name="stepButton">
+      <property name="text">
+       <string>Step</string>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -96,7 +103,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>498</width>
+     <width>514</width>
      <height>25</height>
     </rect>
    </property>
@@ -123,6 +130,7 @@
     <slot>yslot(int)</slot>
     <slot>zslot(int)</slot>
     <slot>zoomslot(int)</slot>
+    <slot>Step()</slot>
    </slots>
   </customwidget>
  </customwidgets>
@@ -189,6 +197,22 @@
     <hint type="destinationlabel">
      <x>339</x>
      <y>172</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>stepButton</sender>
+   <signal>pressed()</signal>
+   <receiver>widget</receiver>
+   <slot>Step()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>466</x>
+     <y>46</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>371</x>
+     <y>79</y>
     </hint>
    </hints>
   </connection>

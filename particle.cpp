@@ -2,7 +2,7 @@
 
 Particle::Particle()
 {
-    mass = 1;
+    mass = 5;
 }
 
 Particle::Particle(int particle_mass)
@@ -27,3 +27,20 @@ QVector3D Particle::Get_Colour()
 {
     return colour;
 }
+
+void Particle::SetMass(GLfloat m){
+    mass = m;
+}
+
+GLfloat Particle::Get_Mass(){
+    return mass;
+}
+
+/*
+void Particle::SetResult_force(QVector3D force){
+    result_force = force;
+}
+
+QVector3D Particle::Get_Result_force(){
+    return result_force;
+}*/

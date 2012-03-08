@@ -45,8 +45,15 @@ void OpenGL::initializeGL(){
                 sys->par[i].SetPosition(QVector3D(rand()/(float)RAND_MAX, rand()/(float)RAND_MAX, rand()/(float)RAND_MAX)*
                                         QVector3D(-1,-1,-1));
 
-        sys->par[i].SetColour(QVector3D(1,1,1));//(rand()/(float)RAND_MAX, rand()/(float)RAND_MAX, rand()/(float)RAND_MAX));
+        sys->par[i].SetColour(QVector3D(1,1,1));//rand()/(float)RAND_MAX, rand()/(float)RAND_MAX, rand()/(float)RAND_MAX));
     }
+
+    /* Set the position and colour of white and black hole */
+    sys->blackhole->SetPosition(QVector3D(1, 1, 1));
+    sys->blackhole->SetColour(QVector3D(0,0,0));
+
+    sys->whitehole->SetPosition(QVector3D(-1, -1, -1));
+    sys->whitehole->SetColour((QVector3D(1, 1, 0)));
 
     m_vertexShader = new QGLShader(QGLShader::Vertex);
     m_fragmentShader = new QGLShader(QGLShader::Fragment);
@@ -74,7 +81,7 @@ void OpenGL::initializeGL(){
      //Start the steps
      timer = new QTimer(this);
      connect(timer, SIGNAL(timeout()), this, SLOT(Step()));
-     //timer->start(100);
+     timer->start(100);
 }
 
 void OpenGL::createScene(){
@@ -90,6 +97,12 @@ void OpenGL::createScene(){
         m_points[i] = sys->par[i].Get_Position();
         m_point_colours[i] = sys->par[i].Get_Colour();
     }
+    /* Adding white and black hole
+    m_points[sys->get_num_particles()] = sys->whitehole->Get_Position();
+    m_point_colours[sys->get_num_particles()] = sys->whitehole->Get_Colour();
+
+    m_points[sys->get_num_particles() + 1] = sys->blackhole->Get_Position();
+    m_point_colours[sys->get_num_particles() + 1] = sys->blackhole->Get_Colour();*/
 
     glPointSize(2.0);
     glClearColor(0.5, 0.5, 0.5, 1.0);
@@ -123,9 +136,18 @@ void OpenGL::createScene(){
     m_vboColors->allocate(m_point_colours, (sys->get_num_particles())*sizeof(QVector3D));
     delete []m_point_colours;
     m_point_colours = NULL;
+
+   // m_shaderProgram->setUniformValue("MatrixTransformation", m_matrixTransformation);
+   // updateGL();
 }
 
 void OpenGL::Step(){
+    //sys->Gravitation();
+    //sys->MoveParticles();
+    //sys->WhiteHole();
+    //createScene();
+    sys->GoB();
+    updateGL();
     static unsigned int i = 0;
     printf("%d\n", i++);
     fflush(stdout);
@@ -161,11 +183,18 @@ void OpenGL::paintGL(){
 
     m_vboVertices->bind();
     //pointer to GPU!!!
-    /*QVector3D* pt = (QVector3D*) m_vboVertices->map(QGLBuffer::WriteOnly);
+    QVector3D* pt = (QVector3D*) m_vboVertices->map(QGLBuffer::WriteOnly);
      for(unsigned int i=0; i < sys->get_num_particles(); i++)
      {
-        pt[i] = m_points[i];
-     }*/
+        //pt[i] = m_points[i];
+         pt[i] = sys->par[i].Get_Position();
+         printf("par[%d] = (%lf,%lf,%lf)\n", i, sys->par[i].Get_Position().x(), sys->par[i].Get_Position().y(), sys->par[i].Get_Position().z());
+         fflush(stdout);
+     }/*
+     pt[sys->get_num_particles()] = sys->whitehole->Get_Position();
+     pt[sys->get_num_particles() + 1] = sys->blackhole->Get_Position();
+     printf("whitehole = (%lf,%lf,%lf)\n", sys->whitehole->Get_Position().x(), sys->whitehole->Get_Position().y(), sys->whitehole->Get_Position().z());
+     printf("blackhole = (%lf,%lf,%lf)\n", sys->blackhole->Get_Position().x(), sys->blackhole->Get_Position().y(), sys->blackhole->Get_Position().z());*/
      m_vboVertices->unmap();
 
     m_shaderProgram->enableAttributeArray("vPosition");
@@ -173,18 +202,21 @@ void OpenGL::paintGL(){
 
 
     m_vboColors->bind();
-    /*QVector3D* pt_color = (QVector3D*) m_vboColors->map(QGLBuffer::WriteOnly);
+    QVector3D* pt_color = (QVector3D*) m_vboColors->map(QGLBuffer::WriteOnly);
 
     for(unsigned int i=0; i < sys->get_num_particles(); i++)
     {
-       pt_color[i] = m_point_colours[i];
-    }*/
+       //pt_color[i] = m_point_colours[i];
+        pt_color[i] = sys->par[i].Get_Colour();
+    }/*
+    pt[sys->get_num_particles()] = sys->whitehole->Get_Colour();
+    pt[sys->get_num_particles() + 1] = sys->blackhole->Get_Colour();*/
     m_vboColors->unmap();
 
     m_shaderProgram->enableAttributeArray("vColor");
     m_shaderProgram->setAttributeBuffer("vColor", GL_FLOAT, 0, 3, 0);
 
-    glDrawArrays(GL_POINTS, 0, sys->get_num_particles());
+    glDrawArrays(GL_POINTS, 0, (sys->get_num_particles()));
 
 }
 

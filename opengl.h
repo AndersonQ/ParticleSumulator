@@ -55,6 +55,8 @@ public slots:
     void mode3();
     void sizep();
     void sizem();
+    void timep();
+    void timem();
 
 protected:
     /* Functions */

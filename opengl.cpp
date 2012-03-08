@@ -32,7 +32,7 @@ OpenGL::OpenGL(QWidget *parent) :
 
     /* Define the initial number of particles */
     sys = new ParticleSimulator(1000);
-    delay = 100;
+    delay = 101;
     size = 1;
 }
 
@@ -328,4 +328,16 @@ void OpenGL::sizep(){
 void OpenGL::sizem(){
     size = (size > 0) ? size - 1 : 1;
     createScene();
+}
+
+void OpenGL::timep(){
+    delay = (delay >= 10) ? delay - 10 : 1;
+    timer->stop();
+    timer->start(delay);
+}
+
+void OpenGL::timem(){
+    delay = (delay <= 1000) ? delay + 10 : 1000;
+    timer->stop();
+    timer->start(delay);
 }

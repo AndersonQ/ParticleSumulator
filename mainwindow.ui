@@ -181,6 +181,20 @@ Source code in github.com/AndersonQ/ParticleSimulator</string>
       </property>
      </widget>
     </item>
+    <item row="8" column="2">
+     <widget class="QPushButton" name="pushButton_8">
+      <property name="text">
+       <string>Speed + +</string>
+      </property>
+     </widget>
+    </item>
+    <item row="9" column="2">
+     <widget class="QPushButton" name="pushButton_9">
+      <property name="text">
+       <string>Speed - -</string>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -225,6 +239,8 @@ Source code in github.com/AndersonQ/ParticleSimulator</string>
     <slot>mode3()</slot>
     <slot>sizep()</slot>
     <slot>sizem()</slot>
+    <slot>timem()</slot>
+    <slot>timep()</slot>
    </slots>
   </customwidget>
  </customwidgets>
@@ -435,6 +451,38 @@ Source code in github.com/AndersonQ/ParticleSimulator</string>
     <hint type="destinationlabel">
      <x>951</x>
      <y>375</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_8</sender>
+   <signal>clicked()</signal>
+   <receiver>widget</receiver>
+   <slot>timep()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>924</x>
+     <y>307</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>680</x>
+     <y>225</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_9</sender>
+   <signal>clicked()</signal>
+   <receiver>widget</receiver>
+   <slot>timem()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>934</x>
+     <y>342</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>560</x>
+     <y>227</y>
     </hint>
    </hints>
   </connection>

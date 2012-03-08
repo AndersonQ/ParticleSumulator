@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1007</width>
-    <height>524</height>
+    <height>548</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -175,23 +175,23 @@ Source code in github.com/AndersonQ/ParticleSimulator</string>
      </widget>
     </item>
     <item row="7" column="2">
-     <widget class="QPushButton" name="pushButton_7">
-      <property name="text">
-       <string>Exit</string>
-      </property>
-     </widget>
-    </item>
-    <item row="8" column="2">
      <widget class="QPushButton" name="pushButton_8">
       <property name="text">
        <string>Speed + +</string>
       </property>
      </widget>
     </item>
-    <item row="9" column="2">
+    <item row="8" column="2">
      <widget class="QPushButton" name="pushButton_9">
       <property name="text">
        <string>Speed - -</string>
+      </property>
+     </widget>
+    </item>
+    <item row="9" column="2">
+     <widget class="QPushButton" name="pushButton_7">
+      <property name="text">
+       <string>Exit</string>
       </property>
      </widget>
     </item>

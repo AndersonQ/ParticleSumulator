@@ -305,19 +305,19 @@ void OpenGL::startbt(){
 void OpenGL::mode1(){
     sys->set_mode(1);
     //printf("mode = %d", sys->get_mode());
-    fflush(stdout);
+    //fflush(stdout);
 }
 
 void OpenGL::mode2(){
     sys->set_mode(2);
     //printf("mode = %d", sys->get_mode());
-    fflush(stdout);
+    //fflush(stdout);
 }
 
 void OpenGL::mode3(){
     sys->set_mode(3);
     //printf("mode = %d", sys->get_mode());
-    fflush(stdout);
+    //fflush(stdout);
 }
 
 void OpenGL::sizep(){

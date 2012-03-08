@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>514</width>
-    <height>339</height>
+    <width>709</width>
+    <height>393</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,10 +15,10 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0" rowspan="2" colspan="2">
+    <item row="0" column="0" rowspan="2" colspan="3">
      <widget class="OpenGL" name="widget" native="true"/>
     </item>
-    <item row="2" column="1">
+    <item row="2" column="2">
      <widget class="QSlider" name="xslider">
       <property name="maximum">
        <number>360</number>
@@ -28,7 +28,7 @@
       </property>
      </widget>
     </item>
-    <item row="3" column="1">
+    <item row="3" column="2">
      <widget class="QSlider" name="yslider">
       <property name="maximum">
        <number>360</number>
@@ -38,7 +38,7 @@
       </property>
      </widget>
     </item>
-    <item row="4" column="1">
+    <item row="4" column="2">
      <widget class="QSlider" name="zslider">
       <property name="maximum">
        <number>360</number>
@@ -76,7 +76,7 @@
       </property>
      </widget>
     </item>
-    <item row="5" column="1">
+    <item row="5" column="2">
      <widget class="QSlider" name="zoomsider">
       <property name="minimum">
        <number>1</number>
@@ -89,7 +89,49 @@
       </property>
      </widget>
     </item>
-    <item row="0" column="2">
+    <item row="6" column="2">
+     <widget class="QSlider" name="particleNum">
+      <property name="minimum">
+       <number>1</number>
+      </property>
+      <property name="maximum">
+       <number>1000</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="0">
+     <widget class="QLabel" name="label">
+      <property name="text">
+       <string>Particles</string>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="0">
+     <widget class="QPushButton" name="pushButton_2">
+      <property name="text">
+       <string>Start</string>
+      </property>
+     </widget>
+    </item>
+    <item row="11" column="1" rowspan="2" colspan="2">
+     <widget class="QLabel" name="label_2">
+      <property name="font">
+       <font>
+        <family>Nimbus Mono L</family>
+       </font>
+      </property>
+      <property name="text">
+       <string>Particles Simulator Copyright (C) 2012 Anderson de França Queiroz
+This program comes with ABSOLUTELY NO WARRANTY
+This is free software, and you are welcome to redistribute it.
+Contact contato@andersonq.eti.br</string>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="2">
      <widget class="QPushButton" name="stepButton">
       <property name="text">
        <string>Step</string>
@@ -103,7 +145,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>514</width>
+     <width>709</width>
      <height>25</height>
     </rect>
    </property>
@@ -131,6 +173,12 @@
     <slot>zslot(int)</slot>
     <slot>zoomslot(int)</slot>
     <slot>Step()</slot>
+    <slot>set_num_particles(int)</slot>
+    <slot>stepbt()</slot>
+    <slot>startbt()</slot>
+    <slot>timer_inc()</slot>
+    <slot>mode1()</slot>
+    <slot>mode2()</slot>
    </slots>
   </customwidget>
  </customwidgets>
@@ -143,12 +191,12 @@
    <slot>xslot(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>129</x>
-     <y>215</y>
+     <x>248</x>
+     <y>143</y>
     </hint>
     <hint type="destinationlabel">
-     <x>66</x>
-     <y>189</y>
+     <x>75</x>
+     <y>103</y>
     </hint>
    </hints>
   </connection>
@@ -159,12 +207,12 @@
    <slot>yslot(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>264</x>
-     <y>235</y>
+     <x>383</x>
+     <y>169</y>
     </hint>
     <hint type="destinationlabel">
-     <x>159</x>
-     <y>178</y>
+     <x>168</x>
+     <y>103</y>
     </hint>
    </hints>
   </connection>
@@ -175,12 +223,12 @@
    <slot>zslot(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>264</x>
-     <y>260</y>
+     <x>383</x>
+     <y>195</y>
     </hint>
     <hint type="destinationlabel">
-     <x>243</x>
-     <y>194</y>
+     <x>252</x>
+     <y>103</y>
     </hint>
    </hints>
   </connection>
@@ -191,12 +239,28 @@
    <slot>zoomslot(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>296</x>
-     <y>286</y>
+     <x>415</x>
+     <y>221</y>
     </hint>
     <hint type="destinationlabel">
-     <x>339</x>
-     <y>172</y>
+     <x>348</x>
+     <y>103</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>particleNum</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>widget</receiver>
+   <slot>set_num_particles(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>163</x>
+     <y>238</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>113</x>
+     <y>103</y>
     </hint>
    </hints>
   </connection>
@@ -204,15 +268,31 @@
    <sender>stepButton</sender>
    <signal>pressed()</signal>
    <receiver>widget</receiver>
-   <slot>Step()</slot>
+   <slot>stepbt()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>466</x>
-     <y>46</y>
+     <x>140</x>
+     <y>271</y>
     </hint>
     <hint type="destinationlabel">
-     <x>371</x>
-     <y>79</y>
+     <x>398</x>
+     <y>73</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_2</sender>
+   <signal>clicked()</signal>
+   <receiver>widget</receiver>
+   <slot>startbt()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>90</x>
+     <y>269</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>90</x>
+     <y>85</y>
     </hint>
    </hints>
   </connection>

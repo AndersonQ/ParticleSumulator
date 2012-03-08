@@ -1,6 +1,25 @@
+/*
+ * This file is part of Simulador_de_Particulas.
+ *
+ * Simulador_de_Particulas is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Simulador_de_Particulas is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Simulador_de_Particulas.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include "opengl.h"
 #include "particle.h"
 #include "particlesimulator.h"
+
+#include <QTimer>
 
 OpenGL::OpenGL(QWidget *parent) :
     QGLWidget(parent)
@@ -13,6 +32,7 @@ OpenGL::OpenGL(QWidget *parent) :
 
     /* Define the initial number of particles */
     sys = new ParticleSimulator(1000);
+    delay = 100;
 }
 
 void OpenGL::initializeGL(){
@@ -78,10 +98,14 @@ void OpenGL::initializeGL(){
 
      createScene();
 
+     //m_matrixTransformation.scale(zoom,zoom,zoom);
+     //m_shaderProgram->setUniformValue("MatrixTransformation", m_matrixTransformation);
+     //updateGL();
+
      //Start the steps
      timer = new QTimer(this);
      connect(timer, SIGNAL(timeout()), this, SLOT(Step()));
-     timer->start(100);
+     //timer->start(100);
 }
 
 void OpenGL::createScene(){
@@ -262,4 +286,29 @@ void OpenGL::zoomslot(int n){
     m_matrixTransformation.scale(zoom,zoom,zoom);
     m_shaderProgram->setUniformValue("MatrixTransformation", m_matrixTransformation);
     updateGL();
+}
+
+void OpenGL::set_num_particles(int n){
+    sys->num_particles = n;
+    updateGL();
+}
+
+void OpenGL::stepbt(){
+    timer->stop();
+    sys->GoB();
+    updateGL();
+}
+
+void OpenGL::startbt(){
+    timer->start(100);
+    m_shaderProgram->setUniformValue("MatrixTransformation", m_matrixTransformation);
+    updateGL();
+}
+
+void OpenGL::mode1(){
+    sys->set_mode(1);
+}
+
+void OpenGL::mode2(){
+    sys->set_mode(3);
 }

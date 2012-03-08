@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>709</width>
-    <height>393</height>
+    <height>638</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -116,7 +116,7 @@
       </property>
      </widget>
     </item>
-    <item row="11" column="1" rowspan="2" colspan="2">
+    <item row="11" column="1" rowspan="3" colspan="2">
      <widget class="QLabel" name="label_2">
       <property name="font">
        <font>
@@ -127,7 +127,8 @@
        <string>Particles Simulator Copyright (C) 2012 Anderson de França Queiroz
 This program comes with ABSOLUTELY NO WARRANTY
 This is free software, and you are welcome to redistribute it.
-Contact contato@andersonq.eti.br</string>
+Contact contato@andersonq.eti.br
+Source code in </string>
       </property>
      </widget>
     </item>
@@ -135,6 +136,27 @@ Contact contato@andersonq.eti.br</string>
      <widget class="QPushButton" name="stepButton">
       <property name="text">
        <string>Step</string>
+      </property>
+     </widget>
+    </item>
+    <item row="11" column="0">
+     <widget class="QPushButton" name="pushButton">
+      <property name="text">
+       <string>Mode 1</string>
+      </property>
+     </widget>
+    </item>
+    <item row="12" column="0">
+     <widget class="QPushButton" name="pushButton_3">
+      <property name="text">
+       <string>Mode 2</string>
+      </property>
+     </widget>
+    </item>
+    <item row="13" column="0">
+     <widget class="QPushButton" name="pushButton_4">
+      <property name="text">
+       <string>Mode 3</string>
       </property>
      </widget>
     </item>
@@ -179,6 +201,7 @@ Contact contato@andersonq.eti.br</string>
     <slot>timer_inc()</slot>
     <slot>mode1()</slot>
     <slot>mode2()</slot>
+    <slot>mode3()</slot>
    </slots>
   </customwidget>
  </customwidgets>
@@ -191,8 +214,8 @@ Contact contato@andersonq.eti.br</string>
    <slot>xslot(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>248</x>
-     <y>143</y>
+     <x>354</x>
+     <y>361</y>
     </hint>
     <hint type="destinationlabel">
      <x>75</x>
@@ -207,8 +230,8 @@ Contact contato@andersonq.eti.br</string>
    <slot>yslot(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>383</x>
-     <y>169</y>
+     <x>489</x>
+     <y>386</y>
     </hint>
     <hint type="destinationlabel">
      <x>168</x>
@@ -223,8 +246,8 @@ Contact contato@andersonq.eti.br</string>
    <slot>zslot(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>383</x>
-     <y>195</y>
+     <x>489</x>
+     <y>411</y>
     </hint>
     <hint type="destinationlabel">
      <x>252</x>
@@ -239,8 +262,8 @@ Contact contato@andersonq.eti.br</string>
    <slot>zoomslot(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>415</x>
-     <y>221</y>
+     <x>521</x>
+     <y>436</y>
     </hint>
     <hint type="destinationlabel">
      <x>348</x>
@@ -255,8 +278,8 @@ Contact contato@andersonq.eti.br</string>
    <slot>set_num_particles(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>163</x>
-     <y>238</y>
+     <x>269</x>
+     <y>461</y>
     </hint>
     <hint type="destinationlabel">
      <x>113</x>
@@ -271,8 +294,8 @@ Contact contato@andersonq.eti.br</string>
    <slot>stepbt()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>140</x>
-     <y>271</y>
+     <x>246</x>
+     <y>494</y>
     </hint>
     <hint type="destinationlabel">
      <x>398</x>
@@ -288,11 +311,59 @@ Contact contato@andersonq.eti.br</string>
    <hints>
     <hint type="sourcelabel">
      <x>90</x>
-     <y>269</y>
+     <y>493</y>
     </hint>
     <hint type="destinationlabel">
      <x>90</x>
      <y>85</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>widget</receiver>
+   <slot>mode1()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>43</x>
+     <y>512</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>473</x>
+     <y>100</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_3</sender>
+   <signal>clicked()</signal>
+   <receiver>widget</receiver>
+   <slot>mode2()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>41</x>
+     <y>547</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>586</x>
+     <y>107</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_4</sender>
+   <signal>clicked()</signal>
+   <receiver>widget</receiver>
+   <slot>mode3()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>74</x>
+     <y>578</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>629</x>
+     <y>316</y>
     </hint>
    </hints>
   </connection>

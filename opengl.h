@@ -49,6 +49,7 @@ public slots:
     void startbt();
     void mode1();
     void mode2();
+    void mode3();
 
 protected:
     /* Functions */

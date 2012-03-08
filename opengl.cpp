@@ -214,12 +214,8 @@ void OpenGL::paintGL(){
          pt[i] = sys->par[i].Get_Position();
          printf("par[%d] = (%lf,%lf,%lf)\n", i, sys->par[i].Get_Position().x(), sys->par[i].Get_Position().y(), sys->par[i].Get_Position().z());
          fflush(stdout);
-     }/*
-     pt[sys->get_num_particles()] = sys->whitehole->Get_Position();
-     pt[sys->get_num_particles() + 1] = sys->blackhole->Get_Position();
-     printf("whitehole = (%lf,%lf,%lf)\n", sys->whitehole->Get_Position().x(), sys->whitehole->Get_Position().y(), sys->whitehole->Get_Position().z());
-     printf("blackhole = (%lf,%lf,%lf)\n", sys->blackhole->Get_Position().x(), sys->blackhole->Get_Position().y(), sys->blackhole->Get_Position().z());*/
-     m_vboVertices->unmap();
+     }
+    m_vboVertices->unmap();
 
     m_shaderProgram->enableAttributeArray("vPosition");
     m_shaderProgram->setAttributeBuffer("vPosition", GL_FLOAT, 0, 3, 0);
@@ -307,8 +303,18 @@ void OpenGL::startbt(){
 
 void OpenGL::mode1(){
     sys->set_mode(1);
+    //printf("mode = %d", sys->get_mode());
+    fflush(stdout);
 }
 
 void OpenGL::mode2(){
+    sys->set_mode(2);
+    //printf("mode = %d", sys->get_mode());
+    fflush(stdout);
+}
+
+void OpenGL::mode3(){
     sys->set_mode(3);
+    //printf("mode = %d", sys->get_mode());
+    fflush(stdout);
 }

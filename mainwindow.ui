@@ -170,7 +170,14 @@ Source code in github.com/AndersonQ/ParticleSimulator</string>
     <item row="0" column="2">
      <widget class="QPushButton" name="pushButton_2">
       <property name="text">
-       <string>Start</string>
+       <string>Run</string>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="2">
+     <widget class="QPushButton" name="pushButton_7">
+      <property name="text">
+       <string>Exit</string>
       </property>
      </widget>
     </item>
@@ -230,8 +237,8 @@ Source code in github.com/AndersonQ/ParticleSimulator</string>
    <slot>xslot(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>465</x>
-     <y>328</y>
+     <x>322</x>
+     <y>287</y>
     </hint>
     <hint type="destinationlabel">
      <x>75</x>
@@ -246,8 +253,8 @@ Source code in github.com/AndersonQ/ParticleSimulator</string>
    <slot>yslot(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>600</x>
-     <y>353</y>
+     <x>457</x>
+     <y>316</y>
     </hint>
     <hint type="destinationlabel">
      <x>168</x>
@@ -262,8 +269,8 @@ Source code in github.com/AndersonQ/ParticleSimulator</string>
    <slot>zslot(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>600</x>
-     <y>378</y>
+     <x>457</x>
+     <y>341</y>
     </hint>
     <hint type="destinationlabel">
      <x>252</x>
@@ -278,8 +285,8 @@ Source code in github.com/AndersonQ/ParticleSimulator</string>
    <slot>zoomslot(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>632</x>
-     <y>403</y>
+     <x>489</x>
+     <y>366</y>
     </hint>
     <hint type="destinationlabel">
      <x>348</x>
@@ -294,8 +301,8 @@ Source code in github.com/AndersonQ/ParticleSimulator</string>
    <slot>set_num_particles(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>380</x>
-     <y>428</y>
+     <x>237</x>
+     <y>391</y>
     </hint>
     <hint type="destinationlabel">
      <x>113</x>
@@ -310,8 +317,8 @@ Source code in github.com/AndersonQ/ParticleSimulator</string>
    <slot>stepbt()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>357</x>
-     <y>461</y>
+     <x>997</x>
+     <y>258</y>
     </hint>
     <hint type="destinationlabel">
      <x>398</x>
@@ -326,8 +333,8 @@ Source code in github.com/AndersonQ/ParticleSimulator</string>
    <slot>startbt()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>90</x>
-     <y>460</y>
+     <x>994</x>
+     <y>59</y>
     </hint>
     <hint type="destinationlabel">
      <x>90</x>
@@ -342,8 +349,8 @@ Source code in github.com/AndersonQ/ParticleSimulator</string>
    <slot>mode1()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>43</x>
-     <y>479</y>
+     <x>947</x>
+     <y>78</y>
     </hint>
     <hint type="destinationlabel">
      <x>473</x>
@@ -358,8 +365,8 @@ Source code in github.com/AndersonQ/ParticleSimulator</string>
    <slot>mode2()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>41</x>
-     <y>514</y>
+     <x>945</x>
+     <y>113</y>
     </hint>
     <hint type="destinationlabel">
      <x>586</x>
@@ -374,12 +381,12 @@ Source code in github.com/AndersonQ/ParticleSimulator</string>
    <slot>mode3()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>74</x>
-     <y>545</y>
+     <x>978</x>
+     <y>144</y>
     </hint>
     <hint type="destinationlabel">
      <x>629</x>
-     <y>303</y>
+     <y>258</y>
     </hint>
    </hints>
   </connection>
@@ -390,12 +397,12 @@ Source code in github.com/AndersonQ/ParticleSimulator</string>
    <slot>sizep()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>74</x>
-     <y>575</y>
+     <x>978</x>
+     <y>174</y>
     </hint>
     <hint type="destinationlabel">
      <x>208</x>
-     <y>297</y>
+     <y>258</y>
     </hint>
    </hints>
   </connection>
@@ -406,12 +413,28 @@ Source code in github.com/AndersonQ/ParticleSimulator</string>
    <slot>sizem()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>133</x>
-     <y>580</y>
+     <x>933</x>
+     <y>212</y>
     </hint>
     <hint type="destinationlabel">
      <x>514</x>
-     <y>289</y>
+     <y>258</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_7</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>953</x>
+     <y>287</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>951</x>
+     <y>375</y>
     </hint>
    </hints>
   </connection>

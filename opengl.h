@@ -36,6 +36,9 @@ class OpenGL : public QGLWidget
 public:
     explicit OpenGL(QWidget *parent = 0);
 
+    /* Variable */
+    int size;
+
 signals:
 
 public slots:
@@ -50,6 +53,8 @@ public slots:
     void mode1();
     void mode2();
     void mode3();
+    void sizep();
+    void sizem();
 
 protected:
     /* Functions */

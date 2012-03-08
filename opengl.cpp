@@ -33,6 +33,7 @@ OpenGL::OpenGL(QWidget *parent) :
     /* Define the initial number of particles */
     sys = new ParticleSimulator(1000);
     delay = 100;
+    size = 1;
 }
 
 void OpenGL::initializeGL(){
@@ -128,8 +129,8 @@ void OpenGL::createScene(){
     m_points[sys->get_num_particles() + 1] = sys->blackhole->Get_Position();
     m_point_colours[sys->get_num_particles() + 1] = sys->blackhole->Get_Colour();*/
 
-    glPointSize(2.0);
-    glClearColor(0.5, 0.5, 0.5, 1.0);
+    glPointSize(size);
+    glClearColor(0, 0, 0, 1.0);
 
     // create VBO for vertices
     if (m_vboVertices != NULL)
@@ -172,9 +173,9 @@ void OpenGL::Step(){
     //createScene();
     sys->GoB();
     updateGL();
-    static unsigned int i = 0;
-    printf("%d\n", i++);
-    fflush(stdout);
+    //static unsigned int i = 0;
+    //printf("%d\n", i++);
+    //fflush(stdout);
 }
 
 void OpenGL::resizeGL(int w, int h){
@@ -212,8 +213,8 @@ void OpenGL::paintGL(){
      {
         //pt[i] = m_points[i];
          pt[i] = sys->par[i].Get_Position();
-         printf("par[%d] = (%lf,%lf,%lf)\n", i, sys->par[i].Get_Position().x(), sys->par[i].Get_Position().y(), sys->par[i].Get_Position().z());
-         fflush(stdout);
+         //printf("par[%d] = (%lf,%lf,%lf)\n", i, sys->par[i].Get_Position().x(), sys->par[i].Get_Position().y(), sys->par[i].Get_Position().z());
+         //fflush(stdout);
      }
     m_vboVertices->unmap();
 
@@ -317,4 +318,14 @@ void OpenGL::mode3(){
     sys->set_mode(3);
     //printf("mode = %d", sys->get_mode());
     fflush(stdout);
+}
+
+void OpenGL::sizep(){
+    size = (size < 8) ? size + 1 : 7;
+    createScene();
+}
+
+void OpenGL::sizem(){
+    size = (size > 0) ? size - 1 : 1;
+    createScene();
 }

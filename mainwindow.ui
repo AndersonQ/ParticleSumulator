@@ -128,7 +128,7 @@
 This program comes with ABSOLUTELY NO WARRANTY
 This is free software, and you are welcome to redistribute it.
 Contact contato@andersonq.eti.br
-Source code in </string>
+Source code in github.com/AndersonQ/ParticleSimulator</string>
       </property>
      </widget>
     </item>
@@ -157,6 +157,20 @@ Source code in </string>
      <widget class="QPushButton" name="pushButton_4">
       <property name="text">
        <string>Mode 3</string>
+      </property>
+     </widget>
+    </item>
+    <item row="14" column="0">
+     <widget class="QPushButton" name="pushButton_5">
+      <property name="text">
+       <string>PushButton</string>
+      </property>
+     </widget>
+    </item>
+    <item row="14" column="1">
+     <widget class="QPushButton" name="pushButton_6">
+      <property name="text">
+       <string>PushButton</string>
       </property>
      </widget>
     </item>
@@ -202,6 +216,8 @@ Source code in </string>
     <slot>mode1()</slot>
     <slot>mode2()</slot>
     <slot>mode3()</slot>
+    <slot>sizep()</slot>
+    <slot>sizem()</slot>
    </slots>
   </customwidget>
  </customwidgets>
@@ -214,8 +230,8 @@ Source code in </string>
    <slot>xslot(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>354</x>
-     <y>361</y>
+     <x>465</x>
+     <y>328</y>
     </hint>
     <hint type="destinationlabel">
      <x>75</x>
@@ -230,8 +246,8 @@ Source code in </string>
    <slot>yslot(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>489</x>
-     <y>386</y>
+     <x>600</x>
+     <y>353</y>
     </hint>
     <hint type="destinationlabel">
      <x>168</x>
@@ -246,8 +262,8 @@ Source code in </string>
    <slot>zslot(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>489</x>
-     <y>411</y>
+     <x>600</x>
+     <y>378</y>
     </hint>
     <hint type="destinationlabel">
      <x>252</x>
@@ -262,8 +278,8 @@ Source code in </string>
    <slot>zoomslot(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>521</x>
-     <y>436</y>
+     <x>632</x>
+     <y>403</y>
     </hint>
     <hint type="destinationlabel">
      <x>348</x>
@@ -278,8 +294,8 @@ Source code in </string>
    <slot>set_num_particles(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>269</x>
-     <y>461</y>
+     <x>380</x>
+     <y>428</y>
     </hint>
     <hint type="destinationlabel">
      <x>113</x>
@@ -294,8 +310,8 @@ Source code in </string>
    <slot>stepbt()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>246</x>
-     <y>494</y>
+     <x>357</x>
+     <y>461</y>
     </hint>
     <hint type="destinationlabel">
      <x>398</x>
@@ -311,7 +327,7 @@ Source code in </string>
    <hints>
     <hint type="sourcelabel">
      <x>90</x>
-     <y>493</y>
+     <y>460</y>
     </hint>
     <hint type="destinationlabel">
      <x>90</x>
@@ -327,7 +343,7 @@ Source code in </string>
    <hints>
     <hint type="sourcelabel">
      <x>43</x>
-     <y>512</y>
+     <y>479</y>
     </hint>
     <hint type="destinationlabel">
      <x>473</x>
@@ -343,7 +359,7 @@ Source code in </string>
    <hints>
     <hint type="sourcelabel">
      <x>41</x>
-     <y>547</y>
+     <y>514</y>
     </hint>
     <hint type="destinationlabel">
      <x>586</x>
@@ -359,11 +375,43 @@ Source code in </string>
    <hints>
     <hint type="sourcelabel">
      <x>74</x>
-     <y>578</y>
+     <y>545</y>
     </hint>
     <hint type="destinationlabel">
      <x>629</x>
-     <y>316</y>
+     <y>303</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_5</sender>
+   <signal>clicked()</signal>
+   <receiver>widget</receiver>
+   <slot>sizep()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>74</x>
+     <y>575</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>208</x>
+     <y>297</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_6</sender>
+   <signal>clicked()</signal>
+   <receiver>widget</receiver>
+   <slot>sizem()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>133</x>
+     <y>580</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>514</x>
+     <y>289</y>
     </hint>
    </hints>
   </connection>
